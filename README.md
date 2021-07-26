@@ -9,6 +9,7 @@ This is a Laravel Package for SMS Service Integration.
 #### List of available drivers
 
 - [ghasedak](https://ghasedak.io/)
+- [sms.ir](https://sms.ir/)
 
 ## How to install and config [sinarajabpour1998/notifier](https://github.com/sinarajabpour1998/notifier) package?
 
