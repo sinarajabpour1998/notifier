@@ -1,0 +1,33 @@
+{
+    "name": "sinarajabpour1998/notifier",
+    "type": "library",
+    "description": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sina Rajabpour",
+            "email": "sina.rajabpour@outlook.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "7.1.*|7.2.*|7.3.*|7.4.*|8.*",
+        "laravel/framework": "7.*|8.*",
+        "ghasedak/php" : "1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sinarajabpour1998\\Notifier\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sinarajabpour1998\\Notifier\\NotifierServiceProvider"
+            ],
+            "aliases": {
+                "Notifier" : "Sinarajabpour1998\\Notifier\\Facades\\Notifier"
+            }
+        }
+    }
+}
