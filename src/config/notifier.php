@@ -37,9 +37,9 @@ return [
     'information' => [
         'ghasedak' => [
             'constructor' => [
-                'api_key' => env('GHASEDAK-API-KEY','Your ghasedak.io api key'),
-                'api_url' => env('GHASEDAK-API-URL','http://api.ghasedak.me/v2/'),
-                'line_number' => env('GHASEDAK-LINE-NUMBER','Your ghasedak.io line number')
+                'api_key' => env('GHASEDAK_API_KEY','Your ghasedak.io api key'),
+                'api_url' => env('GHASEDAK_API_URL','http://api.ghasedak.me/v2/'),
+                'line_number' => env('GHASEDAK_LINE_NUMBER','Your ghasedak.io line number')
             ],
             'options' => [
 
@@ -47,10 +47,10 @@ return [
         ],
         'smsir' => [
             'constructor' => [
-                'api_key' => env('SMSIR-API-KEY','Your sms.ir api key'),
-                'secret_key' =>  env('SMSIR-SECRET-KEY','Your sms.ir secret key'),
-                'api_url' => env('SMSIR-API-URL','https://ws.sms.ir/'),
-                'line_number' => env('SMSIR-LINE-NUMBER','Your sms.ir line number')
+                'api_key' => env('SMSIR_API_KEY','Your sms.ir api key'),
+                'secret_key' =>  env('SMSIR_SECRET_KEY','Your sms.ir secret key'),
+                'api_url' => env('SMSIR_API_URL','https://ws.sms.ir/'),
+                'line_number' => env('SMSIR_LINE_NUMBER','Your sms.ir line number')
             ],
             'options' => [
 
@@ -58,10 +58,10 @@ return [
         ],
         'smart_sms' => [
             'constructor' => [
-                'line_number' => env('SMARTSMS-LINE-NUMBER'),
-                'user_id' => env('SMARTSMS-USER-ID'),
-                'password'   => env('SMARTSMS-PASSWORD'),
-                'default_sms_rcpt'   => env('SMARTSMS-DEFAULT-RCPT'),
+                'line_number' => env('SMARTSMS_LINE_NUMBER'),
+                'user_id' => env('SMARTSMS_USER_ID'),
+                'password'   => env('SMARTSMS_PASSWORD'),
+                'default_sms_rcpt'   => env('SMARTSMS_DEFAULT_RCPT'),
             ],
             'options' => [
 
