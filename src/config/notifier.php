@@ -8,10 +8,10 @@ return [
     |
     | This value determines which of the following sms service to use.
     | You can switch to a different driver at runtime.
-    | Available Drivers : auto (Switch on failure) , ghasedak
+    | Available Drivers : auto (Switch on failure) , ghasedak, smsir
     |
     */
-    'default' => 'ghasedak',
+    'default' => 'smsir',
 
     /*
     |--------------------------------------------------------------------------
@@ -37,9 +37,20 @@ return [
     'information' => [
         'ghasedak' => [
             'constructor' => [
-                'api_key' => '',
-                'api_url' => 'http://api.ghasedak.me/v2/',
-                'line_number' => ''
+                'api_key' => env('GHASEDAK-API-KEY','Your ghasedak.io api key'),
+                'api_url' => env('GHASEDAK-API-URL','http://api.ghasedak.me/v2/'),
+                'line_number' => env('GHASEDAK-LINE-NUMBER','Your ghasedak.io line number')
+            ],
+            'options' => [
+
+            ]
+        ],
+        'smsir' => [
+            'constructor' => [
+                'api_key' => env('SMSIR-API-KEY','Your sms.ir api key'),
+                'secret_key' =>  env('SMSIR-SECRET-KEY','Your sms.ir secret key'),
+                'api_url' => env('SMSIR-API-URL','https://ws.sms.ir/'),
+                'line_number' => env('SMSIR-LINE-NUMBER','Your sms.ir line number')
             ],
             'options' => [
 
@@ -47,10 +58,10 @@ return [
         ],
         'smart_sms' => [
             'constructor' => [
-                'line_number' => '',
-                'user_id' => '',
-                'password'   => '',
-                'default_sms_rcpt'   => '',
+                'line_number' => env('SMARTSMS-LINE-NUMBER'),
+                'user_id' => env('SMARTSMS-USER-ID'),
+                'password'   => env('SMARTSMS-PASSWORD'),
+                'default_sms_rcpt'   => env('SMARTSMS-DEFAULT-RCPT'),
             ],
             'options' => [
 
@@ -68,6 +79,7 @@ return [
     |
     */
     'drivers' => [
-        'ghasedak' => \Sinarajabpour1998\Notifier\Drivers\Ghasedak::class
+        'ghasedak' => \Sinarajabpour1998\Notifier\Drivers\Ghasedak::class,
+        'smsir' => \Sinarajabpour1998\Notifier\Drivers\Smsir::class
     ]
 ];
