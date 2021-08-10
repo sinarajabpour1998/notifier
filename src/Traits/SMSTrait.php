@@ -8,7 +8,7 @@ use Sinarajabpour1998\Notifier\Models\NotifierSmsTemplate;
 trait SMSTrait
 {
     protected $userId, $templateId, $params, $options;
-    protected $user, $template;
+    protected $user, $template, $original_template;
 
     protected function setVariables($userId,$templateId,$params,$options)
     {
@@ -77,8 +77,10 @@ trait SMSTrait
             throw new \ErrorException("the templateId ({$this->templateId}) not found ! did you define this template in a seeder ? did you try php artisan db:seed ?");
         }
         $template_text = $template->template_text;
+        $original_text = str_replace('[param1]', $this->params['param1'], $template_text);
         if (array_key_exists('hasPassword', $this->options) && $this->options['hasPassword'] == 'yes'){
             $template_text = str_replace('[param1]', '********', $template_text);
+
         }else{
             $template_text = str_replace('[param1]', $this->params['param1'], $template_text);
         }
@@ -88,5 +90,6 @@ trait SMSTrait
             }
         }
         $this->template = $template_text;
+        $this->original_template = $original_text;
     }
 }
