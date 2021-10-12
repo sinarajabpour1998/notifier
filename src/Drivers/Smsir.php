@@ -42,7 +42,6 @@ class Smsir extends Driver
         $client = new Client();
         $body   = ['Messages'=>array($this->original_template),'MobileNumbers'=>array($this->user->mobile),'LineNumber'=>$this->getInformation()['line_number'],'SendDateTime'=>$SendDateTime];
         $result = $client->post($this->getInformation()['api_url'].'api/MessageSend',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
-        dd(json_decode($result->getBody(),true));
         return json_decode($result->getBody(),true);
     }
 
