@@ -49,6 +49,7 @@ trait SMSTrait
     {
         if (!is_null($this->userId) && $this->userId != 0){
             $this->user = $this->getUserModel()->findOrFail($this->userId);
+            $this->user->mobile = NotifierToolsFacade::dataDecryption($this->user->mobile);
         }else{
             $this->user = (object) [];
             $this->user->mobile = NotifierToolsFacade::dataDecryption($this->options['receiver']);

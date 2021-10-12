@@ -1,5 +1,5 @@
 <?php
-namespace Sinarajabpour1998\AclManager\Repositories;
+namespace Sinarajabpour1998\Notifier\Repositories;
 
 class NotifierRepository
 {
