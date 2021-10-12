@@ -25,6 +25,8 @@ return [
     */
     'user_model' => \App\Models\User::class,
 
+    'decryption' => true,
+
     /*
     |--------------------------------------------------------------------------
     | Drivers Information

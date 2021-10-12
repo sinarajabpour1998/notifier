@@ -2,9 +2,11 @@
 
 namespace Sinarajabpour1998\Notifier;
 
+use Sinarajabpour1998\AclManager\Repositories\NotifierRepository;
 use Sinarajabpour1998\Notifier\Core\SMSNotifier;
 use Sinarajabpour1998\Notifier\Facades\Notifier;
 use Illuminate\Support\ServiceProvider;
+use Sinarajabpour1998\Notifier\Facades\NotifierToolsFacade;
 
 class NotifierServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,7 @@ class NotifierServiceProvider extends ServiceProvider
     public function register()
     {
         Notifier::shouldProxyTo(SMSNotifier::class);
+        NotifierToolsFacade::shouldProxyTo(NotifierRepository::class);
     }
 
     /**

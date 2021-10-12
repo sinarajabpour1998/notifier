@@ -2,6 +2,7 @@
 
 namespace Sinarajabpour1998\Notifier\Traits;
 
+use Sinarajabpour1998\Notifier\Facades\NotifierToolsFacade;
 use Sinarajabpour1998\Notifier\Models\NotifierSmsLog;
 use Sinarajabpour1998\Notifier\Models\NotifierSmsTemplate;
 
@@ -50,12 +51,13 @@ trait SMSTrait
             $this->user = $this->getUserModel()->findOrFail($this->userId);
         }else{
             $this->user = (object) [];
-            $this->user->mobile = $this->options['receiver'];
+            $this->user->mobile = NotifierToolsFacade::dataDecryption($this->options['receiver']);
         }
     }
 
     public function save_sms_log($method,$sms_text,$reciver,$status)
     {
+        $reciver = NotifierToolsFacade::dataEncryption($reciver);
         NotifierSmsLog::query()->create([
             'sms_template_id' => $this->templateId,
             'user_id' => $this->userId,
