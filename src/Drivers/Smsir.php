@@ -19,7 +19,7 @@ class Smsir extends Driver
                 $message_result = $this->send_otp_sms();
                 break;
             case 'simple':
-                // send simple sms function
+                $message_result = $this->send_simple_sms();
                 break;
             default:
                 throw new \ErrorException("sms 'method' not found.");
@@ -38,11 +38,24 @@ class Smsir extends Driver
         if (array_key_exists('param2', $this->params)){
             throw new \ErrorException("only 1 param accepted in params (remove param2 to solve this error)");
         }
+        $result = $this->send_sms();
+        return json_decode($result->getBody(),true);
+    }
+
+    protected function send_simple_sms()
+    {
+        $result = $this->send_sms();
+        return json_decode($result->getBody(),true);
+    }
+
+    protected function send_sms()
+    {
+        $this->setUser();
         $SendDateTime = date("Y-m-d")."T".date("H:i:s");
         $client = new Client();
         $body   = ['Messages'=>array($this->original_template),'MobileNumbers'=>array($this->user->mobile),'LineNumber'=>$this->getInformation()['line_number'],'SendDateTime'=>$SendDateTime];
         $result = $client->post($this->getInformation()['api_url'].'api/MessageSend',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
-        return json_decode($result->getBody(),true);
+        return $result;
     }
 
     protected function getToken()
