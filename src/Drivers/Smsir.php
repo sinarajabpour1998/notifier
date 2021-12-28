@@ -18,6 +18,7 @@ class Smsir extends Driver
             case 'otp';
                 $message_result = $this->send_otp_sms();
                 break;
+            case 'with-param':
             case 'simple':
                 $message_result = $this->send_simple_sms();
                 break;
