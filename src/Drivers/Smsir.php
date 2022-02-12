@@ -36,10 +36,26 @@ class Smsir extends Driver
     protected function send_otp_sms()
     {
         $this->setUser();
-        if (array_key_exists('param2', $this->params)){
-            throw new \ErrorException("only 1 param accepted in params (remove param2 to solve this error)");
+        if (array_key_exists('param3', $this->params)){
+            throw new \ErrorException("only 2 params accepted in params (remove param3 to solve this error)");
         }
-        $result = $this->send_sms();
+        $SendDateTime = date("Y-m-d")."T".date("H:i:s");
+        $client = new Client();
+        $body   = [
+            'ParameterArray' => [
+                [
+                    "Parameter" => "name",
+                    "ParameterValue" => $this->params["param2"]
+                ],
+                [
+                    "Parameter" => "code",
+                    "ParameterValue" => $this->params["param1"]
+                ]
+            ],
+            "Mobile" => $this->user->mobile,
+            "TemplateId" => "5648"
+        ];
+        $result = $client->post("http://RestfulSms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
         return json_decode($result->getBody(),true);
     }
 
