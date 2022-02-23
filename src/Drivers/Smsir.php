@@ -18,6 +18,9 @@ class Smsir extends Driver
             case 'otp';
                 $message_result = $this->send_otp_sms();
                 break;
+            case 'service';
+                $message_result = $this->send_service_sms();
+                break;
             case 'with-param':
             case 'simple':
                 $message_result = $this->send_simple_sms();
@@ -56,6 +59,40 @@ class Smsir extends Driver
             "TemplateId" => "5648"
         ];
         $result = $client->post("http://RestfulSms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
+        return json_decode($result->getBody(),true);
+    }
+
+    protected function send_service_sms()
+    {
+        $this->setUser();
+        if (array_key_exists('param5', $this->params)){
+            throw new \ErrorException("only 4 params accepted in params (remove param3 to solve this error)");
+        }
+        $client = new Client();
+        $body   = [
+            'ParameterArray' => [
+                [
+                    "Parameter" => "service",
+                    "ParameterValue" => $this->params["param1"]
+                ],
+                [
+                    "Parameter" => "date",
+                    "ParameterValue" => $this->params["param2"]
+                ],
+                [
+                    "Parameter" => "name",
+                    "ParameterValue" => $this->params["param3"]
+                ],
+                [
+                    "Parameter" => "mobile",
+                    "ParameterValue" => $this->params["param4"]
+                ]
+            ],
+            "Mobile" => $this->user->mobile,
+            "TemplateId" => "4239"
+        ];
+        $result = $client->post("http://RestfulSms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
+
         return json_decode($result->getBody(),true);
     }
 
