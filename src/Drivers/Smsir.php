@@ -21,6 +21,9 @@ class Smsir extends Driver
             case 'service';
                 $message_result = $this->send_service_sms();
                 break;
+            case 'message_notification';
+                $message_result = $this->send_message_notification_sms();
+                break;
             case 'with-param':
             case 'simple':
                 $message_result = $this->send_simple_sms();
@@ -90,6 +93,32 @@ class Smsir extends Driver
             ],
             "Mobile" => $this->user->mobile,
             "TemplateId" => "4239"
+        ];
+        $result = $client->post("http://RestfulSms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
+
+        return json_decode($result->getBody(),true);
+    }
+
+    protected function send_message_notification_sms()
+    {
+        $this->setUser();
+        if (array_key_exists('param3', $this->params)){
+            throw new \ErrorException("only 2 params accepted in params (remove param3 to solve this error)");
+        }
+        $client = new Client();
+        $body   = [
+            'ParameterArray' => [
+                [
+                    "Parameter" => "name",
+                    "ParameterValue" => $this->params["param1"]
+                ],
+                [
+                    "Parameter" => "time",
+                    "ParameterValue" => $this->params["param2"]
+                ]
+            ],
+            "Mobile" => $this->user->mobile,
+            "TemplateId" => "68421"
         ];
         $result = $client->post("http://RestfulSms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
 
