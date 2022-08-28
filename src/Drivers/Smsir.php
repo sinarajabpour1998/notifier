@@ -10,9 +10,9 @@ class Smsir extends Driver
 {
     use SMSTrait;
 
-    public function send($userId, $templateId, $params = [],  $options = [])
+    public function send($userId, $templateId, $params = [],  $options = [], $template_params = [], $sms_ir_templateId = null)
     {
-        $this->setVariables($userId,$templateId,$params,$options);
+        $this->setVariables($userId,$templateId,$params,$options,$template_params, $sms_ir_templateId);
         $this->set_sms_template();
         switch ($this->options['method']){
             case 'otp';
@@ -30,6 +30,9 @@ class Smsir extends Driver
             case 'with-param':
             case 'simple':
                 $message_result = $this->send_simple_sms();
+                break;
+            case 'with-template':
+                $message_result = $this->send_sms_with_template();
                 break;
             default:
                 throw new \ErrorException("sms 'method' not found.");
@@ -172,6 +175,19 @@ class Smsir extends Driver
         $body       = ['UserApiKey'=>$this->getInformation()['api_key'],'SecretKey'=>$this->getInformation()['secret_key'],'System'=>'laravel_v_1_4'];
         $result     = $client->post($this->getInformation()['api_url'].'api/Token',['json'=>$body,'connect_timeout'=>30]);
         return json_decode($result->getBody(),true)['TokenKey'];
+    }
+
+    protected function send_sms_with_template()
+    {
+        $this->setUser();
+        $client = new Client();
+        $body = [
+            'ParameterArray' => $this->template_params,
+            "Mobile" => $this->user->mobile,
+            "TemplateId" => $this->sms_ir_templateId
+        ];
+        $result = $client->post("http://RestfulSms.com/api/UltraFastSend", ['json' => $body, 'headers' => ['x-sms-ir-secure-token' => $this->getToken()], 'connect_timeout' => 30]);
+        return json_decode($result->getBody(), true);
     }
 
 }

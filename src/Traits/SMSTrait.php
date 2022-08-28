@@ -8,17 +8,19 @@ use Sinarajabpour1998\Notifier\Models\NotifierSmsTemplate;
 
 trait SMSTrait
 {
-    protected $userId, $templateId, $params, $options;
-    protected $user, $template, $original_template;
+    protected $userId, $templateId, $params, $options, $sms_ir_templateId;
+    protected $user, $template, $original_template, $template_params;
 
-    protected function setVariables($userId,$templateId,$params,$options)
+    protected function setVariables($userId,$templateId,$params,$options, $template_params = [], $sms_ir_templateId = null)
     {
+        $this->template_params = $template_params;
+        $this->sms_ir_templateId = $sms_ir_templateId;
         $this->userId = $userId;
         if (is_null($templateId) || $templateId == 0){
             throw new \ErrorException("templateId can't be 0 or null");
         }
         $this->templateId = $templateId;
-        if ($options['method'] != 'simple'){
+        if ($options['method'] != 'simple' && $options['method'] != 'with-template'){
             if (is_null($params)){
                 throw new \ErrorException("params can't be null");
             }
@@ -42,7 +44,7 @@ trait SMSTrait
         if (!array_key_exists('method', $this->options)){
             throw new \ErrorException("you must have 'method' key in your options");
         }
-        if ($this->options['method'] != 'simple' && !array_key_exists('param1', $this->params)){
+        if ($this->options['method'] != 'simple' && $options['method'] != 'with-template' && !array_key_exists('param1', $this->params)){
             throw new \ErrorException("you must have at least 'param1' key in your params");
         }
     }
@@ -82,7 +84,7 @@ trait SMSTrait
             throw new \ErrorException("the templateId ({$this->templateId}) not found ! did you define this template in a seeder ? did you try php artisan db:seed ?");
         }
         $template_text = $template->template_text;
-        if ($this->options['method'] != 'simple'){
+        if ($this->options['method'] != 'simple' && $this->options['method'] != 'with-template'){
             $original_text = str_replace('[param1]', $this->params['param1'], $template_text);
             if (array_key_exists('hasPassword', $this->options) && $this->options['hasPassword'] == 'yes'){
                 $template_text = str_replace('[param1]', '********', $template_text);

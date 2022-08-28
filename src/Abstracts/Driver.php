@@ -14,7 +14,7 @@ abstract class Driver implements DriverInterface
         $this->driver = $driver;
     }
 
-    abstract public function send($userId, $templateId, $params = [],  $options = []);
+    abstract public function send($userId, $templateId, $params = [],  $options = [], $template_params = [], $sms_ir_templateId = null);
 
     public function getInformation() {
         return config('notifier.information')[$this->driver]['constructor'];

@@ -10,6 +10,8 @@ class SMSNotifier
     protected $params;
     protected $options;
     protected $config;
+    protected $template_params;
+    protected $sms_ir_templateId;
 
     public function __construct()
     {
@@ -19,7 +21,7 @@ class SMSNotifier
     public function send()
     {
         $object = $this->fireDriver();
-        return $object->send($this->userId, $this->templateId, $this->params, $this->options);
+        return $object->send($this->userId, $this->templateId, $this->params, $this->options, $this->template_params, $this->sms_ir_templateId);
     }
 
     public function getDriver()
@@ -64,6 +66,18 @@ class SMSNotifier
     public function options($options = [])
     {
         $this->options = $options;
+        return $this;
+    }
+
+    public function template_params($template_params = [])
+    {
+        $this->template_params = $template_params;
+        return $this;
+    }
+
+    public function sms_ir_templateId($sms_ir_templateId = null)
+    {
+        $this->sms_ir_templateId = $sms_ir_templateId;
         return $this;
     }
 }
