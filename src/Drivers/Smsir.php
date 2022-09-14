@@ -67,7 +67,7 @@ class Smsir extends Driver
             "Mobile" => $this->user->mobile,
             "TemplateId" => "5648"
         ];
-        $result = $client->post("http://RestfulSms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
+        $result = $client->post("https://restfulsms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
         return json_decode($result->getBody(),true);
     }
 
@@ -100,7 +100,7 @@ class Smsir extends Driver
             "Mobile" => $this->user->mobile,
             "TemplateId" => "4239"
         ];
-        $result = $client->post("http://RestfulSms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
+        $result = $client->post("https://restfulsms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
 
         return json_decode($result->getBody(),true);
     }
@@ -126,7 +126,7 @@ class Smsir extends Driver
             "Mobile" => $this->user->mobile,
             "TemplateId" => "68421"
         ];
-        $result = $client->post("http://RestfulSms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
+        $result = $client->post("https://restfulsms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
 
         return json_decode($result->getBody(),true);
     }
@@ -148,7 +148,7 @@ class Smsir extends Driver
             "Mobile" => $this->user->mobile,
             "TemplateId" => "68744"
         ];
-        $result = $client->post("http://RestfulSms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
+        $result = $client->post("https://restfulsms.com/api/UltraFastSend",['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>$this->getToken()],'connect_timeout'=>30]);
 
         return json_decode($result->getBody(),true);
     }
@@ -186,7 +186,7 @@ class Smsir extends Driver
             "Mobile" => $this->user->mobile,
             "TemplateId" => $this->sms_ir_templateId
         ];
-        $result = $client->post("http://RestfulSms.com/api/UltraFastSend", ['json' => $body, 'headers' => ['x-sms-ir-secure-token' => $this->getToken()], 'connect_timeout' => 30]);
+        $result = $client->post("https://restfulsms.com/api/UltraFastSend", ['json' => $body, 'headers' => ['x-sms-ir-secure-token' => $this->getToken()], 'connect_timeout' => 30]);
         return json_decode($result->getBody(), true);
     }
 
